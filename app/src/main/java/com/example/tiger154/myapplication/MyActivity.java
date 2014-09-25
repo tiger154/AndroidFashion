@@ -29,7 +29,7 @@ public class MyActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, NavigationDrawerFragment.Communicator {
 
     /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
+     * Fragment managing the behaviors, interactions and presentation of the navigation drawer. 주석추가후 커밋 
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private PlaceholderFragment mPlaceHolderFragment = new PlaceholderFragment();
