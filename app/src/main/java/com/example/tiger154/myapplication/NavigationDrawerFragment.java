@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -132,22 +133,51 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout = drawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens
+        // 드로워가 오픈될때 메인 콘텐츠에 오버레이 되는 사용자정의 그림자를 셋팅한다
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
 
+
+        // set up the drawer's list view with items and click listener
+        // 드로워의 리스트뷰, 아이템, 클릭 리스너 셋팅
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
+        // 네비게이션 드로워와 액션바간의 적절한 상호작용은 액션바드로워토글에 연계되어있다.
         mDrawerToggle = new ActionBarDrawerToggle(
-                getActivity(),                    /* host Activity */
-                mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
-                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
-                R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
+                getActivity(),                      /* host Activity 메인 액티비티*/
+                mDrawerLayout,                    /* DrawerLayout object 드로워레이아웃 오브젝트*/
+                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret 업캐럿을 변환할 드로워 이미지*/
+                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility 접근성을 위한 오픈드로워 설명*/
+                R.string.navigation_drawer_close  /* "close drawer" description for accessibility  접근성을 위한 클로즈 드로워 설명 */
         ) {
+
+            // For Right to Left Action 2014.09.31
+            @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
+
+                // I can define when open drawerLayout , which icon should be clicked
+             //  if (item != null && item.getItemId() == android.R.id.home) {
+              //      if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                      //  mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                //    } else {
+                     //  mDrawerLayout.openDrawer(Gravity.RIGHT);
+                //    }
+              //  }
+
+                // action_example 아이콘 눌렀을때도 드로워 레이아웃이 작동하게 한다..
+                if (item != null && item.getItemId() == R.id.action_example) {
+                    if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                        mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                    } else {
+                        mDrawerLayout.openDrawer(Gravity.RIGHT);
+                    }
+                }
+                return false;
+            }
+
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -255,10 +285,6 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
