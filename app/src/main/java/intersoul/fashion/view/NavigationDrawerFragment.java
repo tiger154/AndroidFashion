@@ -1,16 +1,16 @@
-package com.example.tiger154.myapplication;
+package intersoul.fashion.view;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import intersoul.fashion.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -78,7 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
+        //selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -93,16 +94,22 @@ public class NavigationDrawerFragment extends Fragment {
             Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+
+
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            /*
                 TextView lTextView = (TextView)getView().getRootView().findViewById(R.id.section_label);
 
                 String lValue = lTextView.getText().toString();
                 String temp = "Got it!"+id;
                 lTextView.setText(temp);
                 selectItem(position);
-
+              */
+                selectItem(position);
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
@@ -139,7 +146,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // set up the drawer's list view with items and click listener
         // 드로워의 리스트뷰, 아이템, 클릭 리스너 셋팅
-        ActionBar actionBar = getActionBar();
+         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
@@ -274,7 +281,7 @@ public class NavigationDrawerFragment extends Fragment {
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
             inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
+           // showGlobalContextActionBar();   -> 글로벌로 보여줄 이유가 없음 현재...
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
