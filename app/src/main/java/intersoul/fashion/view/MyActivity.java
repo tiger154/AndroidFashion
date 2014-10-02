@@ -153,13 +153,22 @@ public class MyActivity extends Activity
         actionBar.setSelectedNavigationItem(position);
 
         if(position ==0) {
-            // 타임라인일경우 데이터 생성부..
+            // If its TimeLine replace FrameLayout to New BagFragment instance .
             TimeLineFragment lTimelinefragment = TimeLineFragment.newInstance(position + 1);
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, lTimelinefragment, "MY_FRAGMENT" + (position + 1))
+                    .replace(R.id.container, lTimelinefragment, "TimelineF" + (position + 1))
                     .commit();
         }else if(position==1){
-            // 타임라인일경우 데이터 생성부..
+            // If its Bag replace FrameLayout to New BagFragment instance
+            BagFragment lBagFragment = BagFragment.newInstance(position + 1);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, lBagFragment, "BagF" + (position + 1))
+                    .commit();
+        }else if(position==2){
+            StoreFragment lStoreFragment = StoreFragment.newInstance(position + 1);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, lStoreFragment , "StoreF" + (position + 1))
+                    .commit();
 
         }
 
@@ -190,12 +199,19 @@ public class MyActivity extends Activity
 
     }
 
+
     // 타임라인 프레그먼트 설정변경
     // Ok 액션 받았음 From DrawerAction To TimeLineFragment
-    public void setSomething(int num){
-
+    public void setListViewTimelineFragment(int num){
         ListView lListView = (ListView)findViewById(R.id.timeLineListView);
     }
+
+    public void setTextViewBagFragment(int aNum){
+       TextView lText = (TextView)findViewById(R.id.bagText);
+       lText.setText("I got param from DrawerFragment, its number : " + aNum);
+    }
+
+
 
     // 플레이스 홀더 프레그먼트 내의, 뷰 텍스트를 변경한다...
     public  void setPlaceHoderText(int number){
@@ -237,21 +253,7 @@ public class MyActivity extends Activity
                 tab.setTabListener(this);
                 actionBar.addTab(tab);
             }*/
-
-            // 탭 인스턴스 생성..
-            mTabTimeLine  = actionBar.newTab().setText("Timeline");
-            mTabBag  = actionBar.newTab().setText("Bag");
-            mTabStore = actionBar.newTab().setText("Store");
-
-            // 탭 리스너 설정
-            mTabTimeLine.setTabListener(new TabListener(mTimeLineFragment));
-            mTabBag.setTabListener(new TabListener(mBagFragment));
-            mTabStore.setTabListener(new TabListener(mStoreFragment));
-
-            // 액션바에 탭 추가
-            actionBar.addTab(mTabTimeLine);
-            actionBar.addTab(mTabBag);
-            actionBar.addTab(mTabStore);
+            //setTab();
         }
         actionBar.setTitle(R.string.app_name);
     }
@@ -265,7 +267,7 @@ public class MyActivity extends Activity
             // decide what to show in the action bar.
             mMenu = menu; // 생성된 메뉴 인스턴스 내부 변수 할당
             getMenuInflater().inflate(R.menu.my, menu);
-            restoreActionBar();
+            //restoreActionBar(); --> 기존 값을 초기화 시켜버리는 문제가 있어 제거 한다.
             return true;
         }
         return super.onCreateOptionsMenu(menu);

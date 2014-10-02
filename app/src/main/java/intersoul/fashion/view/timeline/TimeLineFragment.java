@@ -47,7 +47,7 @@ public  class TimeLineFragment extends Fragment {
         super.onStart();
            if(getArguments() != null){
                int section = getArguments().getInt(ARG_SECTION_NUMBER);
-               mMyActivity.setSomething(section);
+               mMyActivity.setListViewTimelineFragment(section);
            }
 
     }
