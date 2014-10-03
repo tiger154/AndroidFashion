@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import intersoul.fashion.R;
 
 import intersoul.fashion.view.NavigationDrawerFragment;
@@ -61,6 +63,8 @@ public class MyActivity extends Activity
 
         setTab();              // 1. 탭 설정
         setNavigationDrawer(); // 2. 네비게이션 드로워 설정
+
+
 
     }
 

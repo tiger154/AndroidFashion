@@ -9,4 +9,5 @@
         android:layout_centerVertical="true"
         android:text="@string/fragment_bag"
         />
+
 </RelativeLayout>

@@ -2,15 +2,15 @@
 <resources>
 
     <string name="app_name">InterSoul</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1"> Go to TimeLine</string>
+    <string name="title_section2"> Go to Bag Category List </string>
+    <string name="title_section3"> Go to Store List </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">◎</string>
     <string name="action_settings">Settings값 변경해주기</string>
 
-    <string name="fragment_timeline"> 타임라인 리스트(스크롤 페이징 필요할듯) </string>
-    <string name="fragment_bag"> 가방 카테고리 리스트  </string>
-    <string name="fragment_store"> 스토어 리스트(일반 리스트? 조금 수정 필요) </string>
+    <string name="fragment_timeline"> TimeLineList (ScrollPaging) </string>
+    <string name="fragment_bag"> Bag Category List  </string>
+    <string name="fragment_store"> Store List  </string>
 </resources>
