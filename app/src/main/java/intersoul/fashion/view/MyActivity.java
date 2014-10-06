@@ -2,6 +2,7 @@ package intersoul.fashion.view;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import com.actionbarsherlock.internal.widget.ScrollingTabContainerView; // added 2014.10.06
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -63,6 +64,9 @@ public class MyActivity extends Activity
      */
     protected void setTab(){
         // 액션바 탭 구성하기 (기존) 하나의 프레그먼트에 텍스트 변경 -> 기존 각 탭별 별도의 프레그먼트 치환
+
+
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
