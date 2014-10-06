@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import intersoul.fashion.R;
 
@@ -146,7 +145,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // set up the drawer's list view with items and click listener
         // 드로워의 리스트뷰, 아이템, 클릭 리스너 셋팅
-         ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
@@ -166,13 +165,40 @@ public class NavigationDrawerFragment extends Fragment {
             public boolean onOptionsItemSelected(MenuItem item) {
 
                 // I can define when open drawerLayout , which icon should be clicked
-             //  if (item != null && item.getItemId() == android.R.id.home) {
-              //      if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                      //  mDrawerLayout.closeDrawer(Gravity.RIGHT);
-                //    } else {
-                     //  mDrawerLayout.openDrawer(Gravity.RIGHT);
-                //    }
-              //  }
+
+                switch (item.getItemId()){
+                    case android.R.id.home:
+                        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                            mDrawerLayout.closeDrawer(Gravity.LEFT);
+                        }
+                        if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                            mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                        }
+                        mDrawerLayout.openDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.action_example :
+
+                        if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                            mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                        }
+                        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                            mDrawerLayout.closeDrawer(Gravity.LEFT);
+                        }
+
+                        mDrawerLayout.openDrawer(Gravity.RIGHT);
+                        break;
+                    default:
+                        break;
+                }
+
+                /*
+               if (item != null && item.getItemId() == android.R.id.home) {
+                   if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                        mDrawerLayout.closeDrawer(Gravity.LEFT);
+                    } else {
+                       mDrawerLayout.openDrawer(Gravity.LEFT);
+                    }
+                }
 
                 // action_example 아이콘 눌렀을때도 드로워 레이아웃이 작동하게 한다..
                 if (item != null && item.getItemId() == R.id.action_example) {
@@ -181,7 +207,8 @@ public class NavigationDrawerFragment extends Fragment {
                     } else {
                         mDrawerLayout.openDrawer(Gravity.RIGHT);
                     }
-                }
+                */
+
                 return false;
             }
 
@@ -191,6 +218,7 @@ public class NavigationDrawerFragment extends Fragment {
                 if (!isAdded()) {
                     return;
                 }
+
 
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
@@ -210,6 +238,7 @@ public class NavigationDrawerFragment extends Fragment {
                             .getDefaultSharedPreferences(getActivity());
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
+
 
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
@@ -280,7 +309,7 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
+            //inflater.inflate(R.menu.global, menu);
            // showGlobalContextActionBar();   -> 글로벌로 보여줄 이유가 없음 현재...
         }
         super.onCreateOptionsMenu(menu, inflater);
