@@ -3,6 +3,7 @@ package intersoul.fashion.view;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import com.actionbarsherlock.internal.widget.ScrollingTabContainerView; // added 2014.10.06
+import android.util.TypedValue;                                         // added 2014.10.06
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +48,7 @@ public class MyActivity extends Activity
     private Fragment mTimeLineFragment = new TimeLineFragment();
     private Fragment mStoreFragment = new StoreFragment();
     private Fragment mBagFragment = new BagFragment();
-
+    private ScrollingTabContainerView mTabsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,9 @@ public class MyActivity extends Activity
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
+
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
 
         // 탭 인스턴스 생성..
         mTabTimeLine  = actionBar.newTab().setText("Timeline");
