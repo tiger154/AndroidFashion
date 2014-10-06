@@ -3,6 +3,7 @@ package intersoul.fashion.view;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import com.actionbarsherlock.internal.widget.ScrollingTabContainerView; // added 2014.10.06
+import com.actionbarsherlock.view.Window;
 import android.util.TypedValue;                                         // added 2014.10.06
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,23 +58,67 @@ public class MyActivity extends Activity
         setContentView(R.layout.activity_my);
         Log.d("INFO","OnCreate진입");
 
-        setTab();              // 1. 탭 설정
-        setNavigationDrawer(); // 2. 네비게이션 드로워 설정
+        initActionbarTab();              // 1. 탭 설정
+        initNavigationDrawer(); // 2. 네비게이션 드로워 설정
     }
+
+
+
 
 
     /**
      *  액션바 탭을 설정한다.
      */
-    protected void setTab(){
+    protected void initActionbarTab(){
         // 액션바 탭 구성하기 (기존) 하나의 프레그먼트에 텍스트 변경 -> 기존 각 탭별 별도의 프레그먼트 치환
-
-
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        /*
+        final TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        // Tab1 Setting
+        TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab1");
+        tabSpec1.setIndicator("Timeline"); // Tab Subject
+        tabSpec1.setContent(R.id.tab1); // Tab Content
+        tabHost.addTab(tabSpec1);
+
+        // Tab2 Setting
+        TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab2");
+        tabSpec2.setIndicator("Bag"); // Tab Subject
+        tabSpec2.setContent(R.id.tab2); // Tab Content
+        tabHost.addTab(tabSpec2);
+
+        // Tab3 Setting
+        TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab3");
+        tabSpec3.setIndicator("Store"); // Tab Subject
+        tabSpec3.setContent(R.id.tab3); // Tab Content
+
+        tabHost.addTab(tabSpec3);
+
+        // show First Tab Content
+        tabHost.setCurrentTab(0);
+
+
+        tabHost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (tabHost.getCurrentTab() == 0) {
+                    Toast.makeText(getApplicationContext(), "토스트메시지입니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        */
+
+
+
+
+
+
 
 
         // 탭 인스턴스 생성..
@@ -96,7 +142,7 @@ public class MyActivity extends Activity
     /**
      * 네비게이션 드로워를 셋팅한다... onCreate 에서 -> onStart 로 위치 변경함
      */
-    protected void setNavigationDrawer(){
+    protected void initNavigationDrawer(){
 
         //  왼쪽 메뉴 네비게이션 정보 셋팅
         mNavigationDrawerFragment = (NavigationDrawerFragment)getFragmentManager().findFragmentById(R.id.navigation_drawer); // 네비게이션 드로워 가져오기
