@@ -96,9 +96,9 @@ public  class TimeLineFragment extends Fragment {
 
         // These two lines not needed,
         // just to get the look of facebook (changing background color & hiding the icon)
-        getActivity().getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
-        getActivity().getActionBar().setIcon(
-                new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        //getActivity().getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3b5998")));
+        //getActivity().getActionBar().setIcon(
+          //      new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();

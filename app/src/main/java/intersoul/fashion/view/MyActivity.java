@@ -32,12 +32,14 @@ import intersoul.fashion.view.timeline.TimeLineFragment;
 public class MyActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks
                     , NavigationDrawerFragment.Communicator
-                    , ActionBar.TabListener{
+                    , ActionBar.TabListener
+                    ,ProfileDrawerFragment.ProfileDrawerCallbacks{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer. 주석추가후 커밋
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private ProfileDrawerFragment mProfileDrawerFragment;
     private PlaceholderFragment mPlaceHolderFragment = new PlaceholderFragment();
     private FrameLayout mFrameLayout;
     private Menu mMenu;
@@ -104,14 +106,23 @@ public class MyActivity extends Activity
      */
     protected void setNavigationDrawer(){
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer); // 네비게이션 드로워 가져오기
+        /**
+        *  왼쪽 메뉴 네비게이션 정보 셋팅
+        * */
+        mNavigationDrawerFragment = (NavigationDrawerFragment)getFragmentManager().findFragmentById(R.id.navigation_drawer); // 네비게이션 드로워 가져오기
+        mProfileDrawerFragment = (ProfileDrawerFragment)getFragmentManager().findFragmentById(R.id.profile_drawer); // 프로필 드로워 가져오기
+
         mTitle = getTitle(); // 제목 가져오기
         // Set up the drawer.
         // OnCreate 시점에서는 프레그먼트 뷰를 잡을수 없다... Start 시점에서 잡게 변경하면 될듯..
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // 우측 프로필 네비게이션 셋팅
+        mProfileDrawerFragment.setUp(
+                R.id.profile_drawer
+                , (DrawerLayout) findViewById(R.id.drawer_layout));
 
     }
 
@@ -121,7 +132,7 @@ public class MyActivity extends Activity
         super.onStart();
         Log.d("INFO","onStart 진입");
 
-        setNavigationDrawer(); // 네비게이션 드로워 설정
+       // setNavigationDrawer(); // 네비게이션 드로워 설정
 /*
         TextView lTextView = (TextView)findViewById(R.id.section_label);
 
@@ -141,6 +152,42 @@ public class MyActivity extends Activity
         super.onResume();
         Log.d("INFO","onResume 진입");
 
+    }
+
+
+    @Override
+    public void onProfileDrawerItemSelected(int position) {
+
+        FragmentManager fragmentManager = getFragmentManager();
+        // 예전 코드는 플레이스 홀더 단일 프레그먼트만 적용했지만... 이제는 바꾼다.
+        // 1번을 선택하면... 1번이 바뀌게 하고싶다면??
+        // 1번이 넘어오면 1번 탭을 활성화, 2번이 넘어오면 2번탭을 활성화
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setSelectedNavigationItem(position);
+
+        if(position ==0) {
+            // If its TimeLine replace FrameLayout to New BagFragment instance .
+            TimeLineFragment lTimelinefragment = TimeLineFragment.newInstance(position + 1);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, lTimelinefragment, "TimelineF" + (position + 1))
+                    .commit();
+        }else if(position==1){
+            // If its Bag replace FrameLayout to New BagFragment instance
+            BagFragment lBagFragment = BagFragment.newInstance(position + 1);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, lBagFragment, "BagF" + (position + 1))
+                    .commit();
+        }else if(position==2){
+            StoreFragment lStoreFragment = StoreFragment.newInstance(position + 1);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, lStoreFragment , "StoreF" + (position + 1))
+                    .commit();
+
+        }
+
+
+        Toast.makeText(MyActivity.this, "profileDrawer"+position, Toast.LENGTH_SHORT).show();
     }
 
     // 네비게이션 프레그먼트의 콜백 클릭 이벤트 실행 부분임... 아주 중요함..

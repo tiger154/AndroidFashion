@@ -2,9 +2,17 @@
 <resources>
 
     <string name="app_name">InterSoul</string>
+
     <string name="title_section1"> Go to TimeLine</string>
     <string name="title_section2"> Go to Bag Category List </string>
     <string name="title_section3"> Go to Store List </string>
+
+    <string name="EditProfile"> EditProfile</string>
+    <string name="Friends">Friends </string>
+    <string name="Notifacations"> Notifacations </string>
+    <string name="MyNewsFeed"> MyNewsFeed </string>
+    <string name="Settings"> Settings </string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">◎</string>
