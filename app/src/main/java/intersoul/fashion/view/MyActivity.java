@@ -51,21 +51,50 @@ public class MyActivity extends Activity
     private Fragment mStoreFragment = new StoreFragment();
     private Fragment mBagFragment = new BagFragment();
     private ScrollingTabContainerView mTabsView;
+    private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         Log.d("INFO","OnCreate진입");
-
+        moveDrawerToTop(); // Adjust DrawerTop Position By decorView
         initActionbarTab();              // 1. 탭 설정
         initNavigationDrawer(); // 2. 네비게이션 드로워 설정
     }
 
 
+    /**
+     * 드로워 포지션 조정
+     */
+    private void moveDrawerToTop() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(this.LAYOUT_INFLATER_SERVICE);
+        mDrawer = (DrawerLayout) inflater.inflate(R.layout.decor, null); // "null" is important.
+
+        // HACK: "steal" the first child of decor view
+        ViewGroup decor = (ViewGroup) getWindow().getDecorView();
+        View child = decor.getChildAt(0);
+        decor.removeView(child);
+        FrameLayout container = (FrameLayout) mDrawer.findViewById(R.id.container); // This is the container we defined just now.
+        container.addView(child, 0);
+        mDrawer.findViewById(R.id.navigation_drawer).setPadding(0, getStatusBarHeight(), 0, 0);
+        mDrawer.findViewById(R.id.profile_drawer).setPadding(0, getStatusBarHeight(), 0, 0);
 
 
 
+        // Make the drawer replace the first child
+        decor.addView(mDrawer);
+    }
+
+    // getStatusBarHeight
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
     /**
      *  액션바 탭을 설정한다.
      */
@@ -75,50 +104,6 @@ public class MyActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        /*
-        final TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
-        tabHost.setup();
-
-        // Tab1 Setting
-        TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab1");
-        tabSpec1.setIndicator("Timeline"); // Tab Subject
-        tabSpec1.setContent(R.id.tab1); // Tab Content
-        tabHost.addTab(tabSpec1);
-
-        // Tab2 Setting
-        TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab2");
-        tabSpec2.setIndicator("Bag"); // Tab Subject
-        tabSpec2.setContent(R.id.tab2); // Tab Content
-        tabHost.addTab(tabSpec2);
-
-        // Tab3 Setting
-        TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab3");
-        tabSpec3.setIndicator("Store"); // Tab Subject
-        tabSpec3.setContent(R.id.tab3); // Tab Content
-
-        tabHost.addTab(tabSpec3);
-
-        // show First Tab Content
-        tabHost.setCurrentTab(0);
-
-
-        tabHost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (tabHost.getCurrentTab() == 0) {
-                    Toast.makeText(getApplicationContext(), "토스트메시지입니다.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        */
-
-
-
-
-
-
 
 
         // 탭 인스턴스 생성..
@@ -144,7 +129,7 @@ public class MyActivity extends Activity
      */
     protected void initNavigationDrawer(){
 
-        //  왼쪽 메뉴 네비게이션 정보 셋팅
+        //  각(왼쪽,오른쪽) 네비게이션 정보 셋팅
         mNavigationDrawerFragment = (NavigationDrawerFragment)getFragmentManager().findFragmentById(R.id.navigation_drawer); // 네비게이션 드로워 가져오기
         mProfileDrawerFragment = (ProfileDrawerFragment)getFragmentManager().findFragmentById(R.id.profile_drawer); // 프로필 드로워 가져오기
 
@@ -166,6 +151,9 @@ public class MyActivity extends Activity
     protected void onStart() {
         super.onStart();
         Log.d("INFO","onStart 진입");
+
+
+        mDrawer.findViewById(R.id.timeLineListView).setPadding(0, getStatusBarHeight(), 0, 0);
     }
 
     @Override

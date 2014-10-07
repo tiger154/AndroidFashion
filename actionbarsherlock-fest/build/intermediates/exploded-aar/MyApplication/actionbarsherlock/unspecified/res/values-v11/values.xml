@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Tiger/AndroidStudioProjects/MyApplication/actionbarsherlock/res/values-v11/abs__themes.xml -->
+    <!-- From: file:/C:/Users/tiger154.HANCOMMS/AndroidStudioProjects/MyApplication/actionbarsherlock/res/values-v11/abs__themes.xml -->
     <eat-comment />
 
     <style name="Sherlock.__Theme" parent="android:Theme.Holo">
